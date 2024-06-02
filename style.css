@@ -1,0 +1,118 @@
+.glass {
+  font-size: 1vmin;
+  width: 90em;
+  height: 90em;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden;
+  border-radius: 0 0 0 2.5em;
+  background: linear-gradient(#aaa 0 0) 50% 0 / 0.7% 50%,
+    radial-gradient(
+      farthest-side circle at 50% 50%,
+      #0000 42%,
+      #000 0 43%,
+      #fff 0 46%,
+      #000 0 47%,
+      #0000 0
+    ),
+    linear-gradient(to bottom right, #0000 45%, #000 0 55%, #0000 0) 0 100% /
+      34.5% 34.5%,
+    #0000;
+  background-repeat: no-repeat;
+}
+
+@property --x {
+  syntax: "<length>";
+  initial-value: 0;
+  inherits: true;
+}
+
+@keyframes moveSpider {
+  0%,
+  20% {
+    --x: 0;
+  }
+  90%,
+  100% {
+    --x: 37em;
+  }
+}
+
+.glass::before,
+.glass::after {
+  --x: 0;
+  --g: radial-gradient(
+    farthest-side circle at 50% 50%,
+    #0000 42%,
+    #000 0 43%,
+    #fff 0 46%,
+    #000 0 47%,
+    #0000 0
+  );
+  /*   --g: 
+    radial-gradient(circle at 56.5% 37%, #fff6 6.25%, #0000 0),
+    radial-gradient(circle at 64% 41.5%, #fff6 3%, #0000 0),
+    radial-gradient(farthest-side circle at 50% 50%, #0ff1 42%, #000 0 43%, #fff 0 46%, #000 0 47%, #0000 0),; */
+  animation: moveSpider 8s cubic-bezier(0.8, -0.5, 0.2, 1.2) alternate infinite;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-mask: radial-gradient(
+    farthest-side circle at 50% 50%,
+    #000 47%,
+    #0000 0
+  );
+  background: var(--g) /* mouth */
+      radial-gradient(farthest-side at 50% 0, #0000 70%, #fff 0 99%, #0000) 50%
+      calc(54.5% - var(--x)) / 3% 1.5%,
+    /* eyes */ radial-gradient(circle at 46.25% 50.5%, #fff 0 0.5%, #0000 0) 50%
+      calc(0em - var(--x)),
+    radial-gradient(circle at 52.75% 50.5%, #fff 0 0.5%, #0000 0) 50%
+      calc(0em - var(--x)),
+    radial-gradient(circle at 46.75% 51%, #000 1.4%, #fff 0 3%, #0000 0) 50%
+      calc(0em - var(--x)),
+    radial-gradient(circle at 53.25% 51%, #000 1.4%, #fff 0 3%, #0000 0) 50%
+      calc(0em - var(--x)),
+    /* cheeks */ radial-gradient(40% 25% at 45% 53.5%, #f88 3.5%, #0000 0) 50%
+      calc(0em - var(--x)),
+    radial-gradient(40% 25% at 55% 53.5%, #f88 3.5%, #0000 0) 50%
+      calc(0em - var(--x)),
+    /* body */ radial-gradient(28% 25% at 50% 50%, #000 30%, #0000 0) 50%
+      calc(0em - var(--x)),
+    /* legs */
+      radial-gradient(farthest-side at 90% 100%, #0000 80%, #000 0 99%, #0000)
+      38% calc(47em - var(--x)) / 10% 10%,
+    radial-gradient(farthest-side at 70% 100%, #0000 80%, #000 0 99%, #0000)
+      35.5% calc(44em - var(--x)) / 12% 10%,
+    radial-gradient(farthest-side at 60% 100%, #0000 80%, #000 0 99%, #0000) 35%
+      calc(40em - var(--x)) / 14% 10%,
+    radial-gradient(farthest-side at 10% 100%, #0000 80%, #000 0 99%, #0000) 62%
+      calc(47em - var(--x)) / 12% 10%,
+    radial-gradient(farthest-side at 30% 100%, #0000 80%, #000 0 99%, #0000)
+      64.5% calc(44em - var(--x)) / 12% 10%,
+    radial-gradient(farthest-side at 40% 100%, #0000 80%, #000 0 99%, #0000) 65%
+      calc(40.5em - var(--x)) / 16% 10%,
+    /* silk */ linear-gradient(#aaa 0 0) 50% calc(-50em - var(--x)) / 1.5% 90em,
+    #fff;
+  background-repeat: no-repeat;
+}
+
+.glass::before {
+  --g: ;
+  top: 19%;
+  transform-origin: 50% 0;
+  transform: scale(0.45);
+  -webkit-mask: none;
+}
+
+@media (prefers-reduced-motion) {
+  .glass::before,
+  .glass::after {
+    animation: none;
+  }
+}
